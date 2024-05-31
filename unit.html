@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <!-- <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script> -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- #3.5 unit converter --------------------------------------------- -->
+    <script type="text/babel">
+        function App() {
+            const [minutes, setMinutes] = React.useState(0);
+            const onChange = (event) => {
+                setMinutes(event.target.value);
+            };
+            const onClick = () => setMinutes(0);
+            return (
+                <div>
+                    <h1>unit converter</h1>
+                    <div>
+                        <label htmlFor="minutes">minutes</label>
+                        <input id="minutes" value={minutes} placeholder="minutes" type="number" onChange={onChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="hours">hours</label>
+                        <input id="hours" value={minutes/60} placeholder="hours" type="number" disabled/>
+                    </div>
+                    <button onClick={onClick}>reset</button>
+                </div>
+            );
+        }
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+
+<!-- 참고) JSX는 HTML과 비슷하지만 다른 몇가지를 기억해야함
+HTML property : Javascript 용어로는 class, for / JSX 용어로는 className, htmlFor -->
