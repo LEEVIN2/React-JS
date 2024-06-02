@@ -10,7 +10,7 @@
 
     <!-- #3.5 unit converter --------------------------------------------- -->
     <script type="text/babel">
-        function App() {
+        function MinutesToHours() {
             const [minutes, setMinutes] = React.useState(0);
             const [flip, setFlip] = React.useState(false);
             const onChange = (event) => {
@@ -23,7 +23,6 @@
             };
             return (
                 <div>
-                    <h1>unit converter</h1>
                     <div>
                         <label htmlFor="minutes">minutes</label>
                         <input id="minutes" value={flip ? minutes*60 : minutes} placeholder="minutes" type="number" onChange={onChange} disabled={flip} />
@@ -37,16 +36,56 @@
                 </div>
             );
         }
+        function KmToMiles() {
+            const [distance, setDistance] = React.useState(0);
+            const [flip, setFlip] = React.useState(false);
+            const onChange = (event) => setDistance(event.target.value);
+            const onReset = () => setDistance(0);
+            const onFlip = () => {
+                onReset();
+                setFlip((current) => !current);
+            };
+            return (
+                <div>
+                    <div>
+                        <label htmlFor="kilometers">kilometers</label>
+                        <input id="kilometers" type="number" value={flip ? distance*1.609 : distance} onChange={onChange} disabled={flip} />
+                    </div>
+                    <div>
+                        <label htmlFor="miles">miles</label>
+                        <input id="miles" type="number" value={flip ? distance : distance/1.609} onChange={onChange} disabled={!flip} />
+                    </div>
+                    <button onClick={onReset}>reset</button>
+                    <button onClick={onFlip}>flip</button>
+                </div>
+            );
+        }
+        function App() {
+            const [index, setIndex] = React.useState("-1");
+            const onChange = (event) => setIndex(event.target.value);
+            return (
+                <div>
+                    <h1>unit converter</h1>
+                    <select onChange={onChange}>
+                        <option value="-1">select</option>
+                        <option value="0">Minutes To Hours</option>
+                        <option value="1">Km To Miles</option>
+                    </select>
+                    <hr/>
+                    {index === "-1" ? "Please select your units" : null}
+                    {index === "0" ? <MinutesToHours /> : null}
+                    {index === "1" ? <KmToMiles /> : null}
+                </div>
+            );
+        }
         const root = document.getElementById("root");
         ReactDOM.render(<App />, root);
     </script>
 
     <!-- info ------------------------------------------------------------ -->
-
     <!-- JSX는 HTML과 비슷하지만 다른 몇가지를 기억해야함
     HTML property : Javascript 용어로는 class, for / JSX 용어로는 className, htmlFor -->
-
-    <!-- 삼항연산자 : if문을 인라인 형태로 작성한 것 -->
+    <!-- 삼항연산자 -->
 </html>
 
 
